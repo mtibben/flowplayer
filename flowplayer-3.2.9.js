@@ -1,5 +1,5 @@
 /**
- * flowplayer.js 3.2.9. The Flowplayer API
+ * flowplayer.js 3.2.9.noflashfix The Flowplayer API
  *
  * Copyright 2009-2011 Flowplayer Oy
  *
@@ -1533,6 +1533,13 @@ if (typeof jQuery == 'function') {
 						location.href = URL;
 					};
 				}
+
+				// root node has events attached, that are difficult to remove
+				// so we clone instead which doesn't carry nodes across
+				var newroot = root.cloneNode(true);
+				root.parentNode.insertBefore(newroot,root);
+				root.parentNode.removeChild(root);
+				root=newroot;
 			}
 
 			// onFail
