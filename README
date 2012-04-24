@@ -1,0 +1,5 @@
+Flowplayer 3.2.9 with a bugfix.
+
+Bug fixed:
+When flash is not installed, a message is displayed with a flash download link. However if the video container is a <div> instead of <a>, the click event does not propogate, but is stopped prematurly. This version removes all events from the container div in this scenario. 
+
