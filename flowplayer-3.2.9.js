@@ -1534,12 +1534,24 @@ if (typeof jQuery == 'function') {
 					};
 				}
 
-				// root node has events attached, that are difficult to remove
-				// so we clone instead which doesn't carry nodes across
-				var newroot = root.cloneNode(true);
-				root.parentNode.insertBefore(newroot,root);
-				root.parentNode.removeChild(root);
-				root=newroot;
+				if (root.tagName == 'DIV')
+				{
+					root.onclick = function() {
+						location.href = URL;
+					};
+
+					// setting location.href on a div chrome doesn't work, perhaps due
+					// to the doClick function being executed first?
+					if (/Chrome/i.test(navigator.userAgent))
+					{
+						// root node has events attached, that are difficult to remove
+						// so we clone instead which doesn't carry events across
+						var newroot = root.cloneNode(true);
+						root.parentNode.insertBefore(newroot,root);
+						root.parentNode.removeChild(root);
+						root=newroot;
+				    }
+				}
 			}
 
 			// onFail
